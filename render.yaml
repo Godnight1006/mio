@@ -1,0 +1,24 @@
+services:
+  - type: web # Use 'web' type because we have a health check endpoint
+    name: minionbot # Name of your service on Render
+    env: docker # Specify Docker environment
+    dockerfilePath: ./Dockerfile # Path to your Dockerfile
+    # Define required environment variables (Set actual values in Render Dashboard!)
+    envVars:
+      - key: DISCORD_TOKEN
+        value: YOUR_DISCORD_TOKEN_HERE # IMPORTANT: Replace in Render Dashboard
+      - key: DEV_ID
+        value: YOUR_DEV_ID_HERE # IMPORTANT: Replace in Render Dashboard
+      - key: WEBHOOK_URL # Optional: Set in Render Dashboard if you use it
+        value: ""
+      - key: PYTHONUNBUFFERED # Already set in Dockerfile, but good practice
+        value: 1
+    # Define the persistent disk
+    disks:
+      - name: minion-data # Name the disk (you'll create this in Render Dashboard)
+        mountPath: /data # Mount it at the path used in minionbot.py
+        sizeGB: 1 # Specify disk size (1 GB is usually enough for config/state files)
+    # Health Check Configuration (Render uses this to know if your service is up)
+    healthCheckPath: / # Path defined in health_check_app.py
+    # Optional: Specify instance type (e.g., free tier)
+    # plan: free # Uncomment or set via dashboard if needed

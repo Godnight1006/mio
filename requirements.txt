@@ -1,0 +1,12 @@
+openai
+requests
+aiohttp
+googletrans-py
+aiofiles
+gradio_client
+Pillow
+google
+google-generativeai
+discord.py-self[voice]
+fastapi
+uvicorn[standard]
